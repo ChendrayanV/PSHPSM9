@@ -13,7 +13,7 @@ A repository for sharing PowerShell codes to automate HPSM9. Please check the HP
 
 > We are working on the web service proxy object to find the methods dynamically before invoking it!
 
-### Logical Diagram for Incident Management
+### Incident Management Blue Print
 ```mermaid
 sequenceDiagram
     PowerShell->>HPSM9: Get me the incident information

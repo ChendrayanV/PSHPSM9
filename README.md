@@ -12,7 +12,6 @@ A repository for sharing PowerShell codes to automate HPSM9
 - [ ] `Close-HPSM9IncidentRequest`
 
 > We are working on the web service proxy object to find the methods dynamically before invoking it!
-> All the items - [x] marked are available in this version
 
 ### Disclaimer
 This module is built on the fly based on the request from the Incident, Change, Problem and Configuration management team. All the shared scripts are packaged as module. So, possible mistakes are expected.

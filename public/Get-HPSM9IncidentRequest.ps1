@@ -60,7 +60,6 @@ function Get-HPSM9IncidentRequest {
                 }
                 $WebService.Dispose()
             }
-            
         }
         catch {
             $_.Exception.ErrorRecord 

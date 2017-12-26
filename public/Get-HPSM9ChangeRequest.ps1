@@ -33,26 +33,30 @@ function Get-HPSM9ChangeRequest {
             $ChangeModelType.instance = $ChangeInstanceType
             $ChangeModelType.keys = $ChangeKeysType
             $Change = New-Object ($NameSpace + ".StringType")
-            $Change.Value = $ChangeId
-            $ChangeKeysType.ChangeID = $Change
-            $RetrieveChangeRequest = New-Object ($NameSpace + ".RetrieveChangeRequest")
-            $RetrieveChangeRequest.model = $ChangeModelType
-            $Result = $WebService.RetrieveChange($RetrieveChangeRequest)
-            if ($Result.Status -eq "Success") {
-                [pscustomobject]@{
-                    Impact            = $Result.model.instance.Impact.Value
-                    ResordId          = $Result.model.instance.recordid
-                    Service           = $Result.model.instance.Service.Value
-                    Category          = $Result.model.instance.header.Category.Value
-                    AssignmentGroup   = $Result.model.instance.header.AssignmentGroup.Value
-                    ConfigurationItem = $Result.model.instance.middle.ConfigurationItem.Value
-                    Status            = $Result.model.instance.header.Status.Value
-                    InitiatedBy       = $Result.model.instance.header.InitiatedBy.Value
+            foreach ($Changes in $ChangeId) {
+
+                $Change.Value = $Changes
+                $ChangeKeysType.ChangeID = $Change
+                $RetrieveChangeRequest = New-Object ($NameSpace + ".RetrieveChangeRequest")
+                $RetrieveChangeRequest.model = $ChangeModelType
+                $Result = $WebService.RetrieveChange($RetrieveChangeRequest)
+                if ($Result.Status -eq "Success") {
+                    [pscustomobject]@{
+                        Impact            = $Result.model.instance.Impact.Value
+                        ResordId          = $Result.model.instance.recordid
+                        Service           = $Result.model.instance.Service.Value
+                        Category          = $Result.model.instance.header.Category.Value
+                        AssignmentGroup   = $Result.model.instance.header.AssignmentGroup.Value
+                        ConfigurationItem = $Result.model.instance.middle.ConfigurationItem.Value
+                        Status            = $Result.model.instance.header.Status.Value
+                        InitiatedBy       = $Result.model.instance.header.InitiatedBy.Value
+                    }
                 }
-            }
-            else {
-                $Message = "{0} with the message {1}" -f ($Result.Status, $Result.message)
-                Write-Warning -Message $Message
+                else {
+                    $Message = "{0} with the message {1}" -f ($Result.Status, $Result.message)
+                    Write-Warning -Message $Message
+                }
+                $WebService.Dispose()
             }
         }
         catch {

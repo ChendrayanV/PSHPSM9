@@ -1,12 +1,16 @@
 function Get-HPSM9IncidentRequest {
-    [CmdletBinding()]
+    [CmdletBinding(DefaultParameterSetName = 'ById')]
     param (
         [Parameter(Mandatory)]
         $Uri,
     
-        [Parameter(Mandatory, ValueFromPipeline, ValueFromPipelineByPropertyName)]
+        [Parameter(Mandatory, ValueFromPipeline, ValueFromPipelineByPropertyName, ParameterSetName = 'ById')]
         [string[]]
         $IncidentId,
+
+        [Parameter(Mandatory, ValueFromPipeline, ValueFromPipelineByPropertyName, ParameterSetName = 'ByQuery')]
+        [string]
+        $Query,
     
         [Parameter()]
         [System.Management.Automation.CredentialAttribute()]
@@ -59,6 +63,18 @@ function Get-HPSM9IncidentRequest {
                     Write-Warning -Message $Message
                 }
                 $WebService.Dispose()
+            }
+
+            if ($PSBoundParameters.ContainsKey('Query')) {
+                $RetrieveIncidentKeysListRequest = New-Object ($NameSpace + ".RetrieveIncidentKeysListRequest")
+                $RetrieveIncidentKeysListRequest.model = $IncidentModelType
+                try {
+                    $RetrieveIncidentKeysLists = $WebService.RetrieveIncidentKeysList($RetrieveIncidentKeysListRequest)
+                    $RetrieveIncidentKeysLists.keys.incidentid
+                }
+                catch {
+                    $_.Exception.Message 
+                }
             }
         }
         catch {

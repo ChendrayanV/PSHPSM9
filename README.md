@@ -1,5 +1,5 @@
 # PSHPSM9
-A repository for sharing PowerShell codes to automate HPSM9
+A repository for sharing PowerShell codes to automate HPSM9. Please check the HPSM web service documentation [here](https://community.softwaregrp.com/dcvta86296/attachments/dcvta86296/itrc-695/16512/1/hp_man_SM9.33_WebServices_pdf.pdf)
 
 ### List of available cmdlets
 

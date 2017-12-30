@@ -34,7 +34,6 @@ function Get-HPSM9ChangeRequest {
             $ChangeModelType.keys = $ChangeKeysType
             $Change = New-Object ($NameSpace + ".StringType")
             foreach ($Changes in $ChangeId) {
-
                 $Change.Value = $Changes
                 $ChangeKeysType.ChangeID = $Change
                 $RetrieveChangeRequest = New-Object ($NameSpace + ".RetrieveChangeRequest")

@@ -1,4 +1,15 @@
 function Get-HPSM9ChangeRequest {
+    <#
+    .SYNOPSIS
+        A PowerShell function to retrieve change request by ID and by Query
+    .DESCRIPTION
+        A PowerShell function to retrieve change request by ID and by Query
+    .EXAMPLE
+        PS C:\> Get-HPSM9ChangeRequest -Uri '' -Id "RFC1234"
+        Retrieves Change Request information for the given RFC number. 
+    .NOTES
+        Twitter: @ChendrayanV
+    #>
     [CmdletBinding()]
     param (
         [Parameter(Mandatory)]
